@@ -3,11 +3,18 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // Convert PascalCase to camelCase
+    options.JsonSerializerOptions.IgnoreNullValues = true; // Ignore null values in JSON
+    options.JsonSerializerOptions.WriteIndented = true; // Format the JSON output with indentation
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; // Make the property names case-insensitive during deserialization
+});
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

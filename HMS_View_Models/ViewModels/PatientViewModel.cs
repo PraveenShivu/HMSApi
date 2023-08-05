@@ -10,5 +10,6 @@ namespace HMS_View_Models.ViewModels
     public class PatientViewModel
     {
         public IList<PatientModel>? Patients { get; set; }
+        public PatientModel Patient { get; set; }
     }
 }
